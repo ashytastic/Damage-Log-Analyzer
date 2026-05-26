@@ -23,6 +23,7 @@
   --har:#c05050;--har-bg:#2a1010;
   --nui:#5080c8;--nui-bg:#101828;
   --pir:#9050c0;--pir-bg:#1a1028;
+  --npc:#c09040;--npc-bg:#251a04;
   --unk:#8080a8;--unk-bg:#1c1c34;
 }
 [data-theme="light"]{
@@ -36,6 +37,7 @@
   --har:#991111;--har-bg:#fee2e2;
   --nui:#1155aa;--nui-bg:#dbeafe;
   --pir:#6030a0;--pir-bg:#f3e8ff;
+  --npc:#7a5000;--npc-bg:#fef9ec;
   --unk:#6a5a38;--unk-bg:#f5f0e8;
 }
 body{font-family:'Rajdhani',sans-serif;background:var(--bg);color:var(--text);min-height:100vh;font-size:15px}
@@ -99,6 +101,7 @@ body{font-family:'Rajdhani',sans-serif;background:var(--bg);color:var(--text);mi
 .faction-har{background:var(--har-bg);color:var(--har);border:1px solid var(--har)}
 .faction-nui{background:var(--nui-bg);color:var(--nui);border:1px solid var(--nui)}
 .faction-pir{background:var(--pir-bg);color:var(--pir);border:1px solid var(--pir)}
+.faction-npc{background:var(--npc-bg);color:var(--npc);border:1px solid var(--npc)}
 .faction-unk{background:var(--unk-bg);color:var(--unk);border:1px solid var(--border)}
 
 /* ── LEADERBOARD ── */
@@ -272,6 +275,7 @@ body{font-family:'Rajdhani',sans-serif;background:var(--bg);color:var(--text);mi
 .faction-sel-btn.har.active,.faction-sel-btn.har:hover{background:var(--har-bg);border-color:var(--har);color:var(--har)}
 .faction-sel-btn.nui.active,.faction-sel-btn.nui:hover{background:var(--nui-bg);border-color:var(--nui);color:var(--nui)}
 .faction-sel-btn.pir.active,.faction-sel-btn.pir:hover{background:var(--pir-bg);border-color:var(--pir);color:var(--pir)}
+.faction-sel-btn.npc.active,.faction-sel-btn.npc:hover{background:var(--npc-bg);border-color:var(--npc);color:var(--npc)}
 .faction-sel-btn.unk.active,.faction-sel-btn.unk:hover{background:var(--unk-bg);border-color:var(--border);color:var(--unk)}
 
 /* ── MISC ── */
@@ -328,72 +332,115 @@ const DEFAULT_FACTIONS = {
   "Adai": "nuia",
   "Ailara": "nuia",
   "Aimi": "nuia",
+  "Aiyana": "nuia",
   "Akarkulia": "nuia",
   "Akfenggg": "nuia",
   "Akxxxx": "nuia",
+  "Alyse": "haranya",
+  "Amatsu": "haranya",
   "Anci": "haranya",
   "Annoyel": "haranya",
+  "Anthalon": "npc",
+  "Anto": "haranya",
   "Aomin": "haranya",
   "Apocalypse": "nuia",
+  "Arciana": "nuia",
   "Aroi": "nuia",
   "Ash": "nuia",
+  "Aspirin": "pirate",
   "Astres": "nuia",
+  "Avokon": "haranya",
   "Ayr": "nuia",
   "Azgg": "nuia",
   "Azoz": "nuia",
+  "Babidi": "haranya",
+  "Babygoth": "nuia",
+  "Balkan": "haranya",
   "Bangaranga": "nuia",
   "Bangarangaa": "nuia",
   "Baoer": "nuia",
+  "Baolongshou": "nuia",
   "Beefstew": "haranya",
   "Belko": "nuia",
+  "Berrymi": "nuia",
   "Bertella": "nuia",
   "Bidam": "haranya",
   "Bilibili": "nuia",
   "Bingxizi": "nuia",
   "Blacks": "nuia",
+  "Blanchot": "nuia",
+  "Blauauge": "nuia",
+  "Bloomx": "nuia",
   "Blyaaaat": "nuia",
+  "Bmr": "pirate",
   "Bozola": "haranya",
   "Buduang": "nuia",
   "Buhaoshua": "nuia",
   "Bunnny": "nuia",
+  "Bunnyheal": "haranya",
+  "Bunnyowner": "haranya",
   "Buwanshui": "nuia",
+  "CPDD": "npc",
+  "Cainiaoliuliu": "pirate",
   "Calen": "nuia",
   "Calipackk": "haranya",
   "Calmi": "haranya",
   "Candys": "nuia",
+  "Cannabisadovakush": "npc",
   "Capybara": "haranya",
   "Caramell": "nuia",
   "Castamere": "nuia",
+  "Changliang": "nuia",
+  "Changliuyucangqiong": "npc",
   "Chupa": "nuia",
   "Chups": "nuia",
+  "Collatbot": "nuia",
   "Cowboy": "nuia",
+  "Crepuscule": "nuia",
+  "Crymore": "haranya",
   "Csimi": "haranya",
   "Cucya": "haranya",
   "Curefortheitch": "haranya",
+  "Cutexiaowugui": "haranya",
+  "DRAKARIS": "npc",
   "Dacapox": "nuia",
+  "Daddyslittlegirl": "pirate",
   "Dannni": "nuia",
+  "Daoyou": "haranya",
   "Darkknighxt": "nuia",
   "Darlyy": "haranya",
+  "Dashenok": "haranya",
   "Daurio": "nuia",
   "Demettra": "haranya",
+  "Depressedpotato": "nuia",
+  "Derreko": "nuia",
   "Devz": "nuia",
+  "Dikuro": "haranya",
   "Dizik": "nuia",
   "Dlang": "nuia",
   "Dloveg": "nuia",
   "Dreamland": "nuia",
   "Driz": "nuia",
+  "Duban": "pirate",
   "Duge": "nuia",
+  "Dusktodawnn": "nuia",
+  "Ecstasyaddict": "nuia",
   "Efialths": "nuia",
+  "Elabteybavtyza": "pirate",
   "Elaineeee": "nuia",
   "Elchappo": "nuia",
+  "Elthara": "nuia",
   "Encke": "nuia",
+  "End east free farm": "npc",
   "Enmity": "nuia",
   "Ensure": "nuia",
   "Epas": "nuia",
   "Ephemeral": "nuia",
   "Epiphany": "nuia",
   "Escanoooor": "nuia",
+  "Etly": "nuia",
   "Eurus": "haranya",
+  "Ewaar": "nuia",
   "Ewwwwwwwww": "haranya",
   "Exlim": "haranya",
   "Eyekiller": "haranya",
@@ -402,9 +449,12 @@ const DEFAULT_FACTIONS = {
   "Falkath": "haranya",
   "Fankypants": "nuia",
   "Feizih": "haranya",
+  "Fenghuang": "nuia",
   "Ferventbot": "nuia",
   "Fiercepain": "haranya",
   "Firrst": "haranya",
+  "Flowercater": "nuia",
+  "Flurry": "haranya",
   "Forxas": "haranya",
   "Fragrantly": "nuia",
   "Fraukadse": "nuia",
@@ -412,134 +462,241 @@ const DEFAULT_FACTIONS = {
   "Frozzel": "nuia",
   "Fuh": "haranya",
   "Fuoco": "nuia",
+  "Fusheng": "nuia",
   "Gangzi": "nuia",
   "Gece": "haranya",
+  "Gekihan": "haranya",
   "Geraltwitcher": "nuia",
+  "Ghost": "nuia",
   "Gogsona": "nuia",
   "Granti": "nuia",
   "Gries": "nuia",
   "Grimmjow": "haranya",
   "Guizhenghe": "nuia",
   "Gulag": "nuia",
+  "Gun": "haranya",
   "Hahamei": "nuia",
   "Hakujitsu": "nuia",
   "Happyhappy": "haranya",
   "Hardpley": "haranya",
+  "Hausos": "nuia",
   "Hbxd": "nuia",
   "Hebat": "nuia",
+  "Heistel": "nuia",
   "Hemumumu": "nuia",
+  "Heracles": "haranya",
   "Heroise": "haranya",
   "Hessa": "nuia",
   "Hideki": "haranya",
   "Huanghu": "nuia",
+  "Hugsmile": "nuia",
   "Hyosh": "nuia",
+  "Icoco": "nuia",
+  "Ikitursa": "pirate",
   "Ikk": "haranya",
+  "Immortalbunny": "haranya",
+  "Immortalmc": "haranya",
   "Inshala": "haranya",
+  "Instability": "haranya",
   "Insure": "nuia",
   "Iqwe": "nuia",
   "Isaacs": "nuia",
+  "Iseedeadpeople": "pirate",
   "Itsyou": "nuia",
+  "Izanagi": "haranya",
   "Jadefox": "nuia",
+  "Jiawenn": "nuia",
   "Justacuterat": "nuia",
   "Kairanii": "nuia",
   "Kallavi": "haranya",
   "Kamikuya": "haranya",
+  "Karamell": "haranya",
   "Katiya": "haranya",
+  "Kazila": "nuia",
   "Kbbovo": "haranya",
+  "Kcoco": "nuia",
   "Kelpie": "nuia",
   "Ketchunezz": "nuia",
+  "Ketsumi": "pirate",
   "Kexar": "nuia",
+  "Khaaz": "haranya",
+  "Kheprie": "haranya",
   "Kiko": "haranya",
   "Kinggreed": "nuia",
   "Kiooolu": "nuia",
+  "Kiristar": "haranya",
   "Kivaru": "nuia",
+  "Kluomi": "nuia",
+  "Kovu": "nuia",
+  "Krakenova": "nuia",
   "Krox": "haranya",
   "Kudzan": "nuia",
   "Kuizhan": "nuia",
   "Kyoraku": "haranya",
+  "LOVE YOYO": "npc",
+  "Lamia": "haranya",
   "Lamz": "nuia",
   "Lancoco": "nuia",
   "Laoyang": "nuia",
+  "Leitingpaoxiao": "nuia",
+  "Lieren": "nuia",
   "Lilmousey": "haranya",
+  "Linadal": "nuia",
   "Lingchenxiaoyu": "nuia",
+  "Lionsin": "nuia",
+  "Listener": "nuia",
+  "Lizimu": "nuia",
   "Lllll": "nuia",
+  "Loleray": "haranya",
+  "Looonger": "nuia",
+  "Loupack": "haranya",
+  "Loveissosimple": "haranya",
+  "Loverofurmom": "pirate",
+  "Loverofurnom": "pirate",
+  "Loverofurstepdad": "pirate",
+  "Lunaris": "pirate",
   "Lusamine": "nuia",
+  "Lvyghh": "nuia",
   "Lxhaoo": "nuia",
   "Madara": "haranya",
   "Mafuyu": "nuia",
+  "Maialina": "nuia",
+  "Makkaa": "nuia",
+  "Maliciaa": "haranya",
   "Maniakos": "haranya",
+  "Maulus": "pirate",
   "Meise": "nuia",
+  "Melancholyglows": "pirate",
+  "Meleeage": "nuia",
+  "Meleebot": "nuia",
   "Mellison": "nuia",
+  "Menmon": "nuia",
+  "Mercan": "nuia",
   "Mialuna": "haranya",
+  "Miaowudi": "nuia",
+  "Mica": "pirate",
   "Midi": "nuia",
   "Mietze": "nuia",
+  "Milka": "nuia",
+  "Milou": "haranya",
+  "Minazuki": "haranya",
+  "Minimeow": "haranya",
   "Minoxidil": "nuia",
+  "Mira": "haranya",
+  "Moevenpick": "haranya",
+  "Mommoet": "nuia",
   "Monterik": "haranya",
   "Mop": "nuia",
   "Mosexuanran": "nuia",
   "Mozell": "haranya",
+  "Myname": "pirate",
   "Nagamasa": "nuia",
+  "Necroson": "haranya",
   "Nerikiri": "haranya",
+  "Nervary": "haranya",
   "Newstart": "haranya",
   "Nexiel": "nuia",
-  "Nier": "nuia",
+  "Nicefona": "haranya",
+  "Nier": "haranya",
+  "Niniku": "haranya",
+  "Niykee": "haranya",
   "Nong": "nuia",
   "Norxdrenxline": "nuia",
   "Nosieep": "haranya",
   "Nosleep": "haranya",
   "Nostii": "nuia",
+  "Nova": "haranya",
   "Nymzo": "haranya",
+  "Nyseleys": "npc",
+  "Ogoneckk": "haranya",
   "Okloser": "haranya",
   "Oktt": "nuia",
   "Oldbich": "nuia",
   "Once": "pirate",
   "Onezero": "nuia",
   "Ophellian": "nuia",
+  "Oreki": "npc",
+  "Orion": "pirate",
+  "Osia": "nuia",
   "Painy": "nuia",
+  "Panamka": "haranya",
   "Pangchong": "nuia",
+  "Panich": "haranya",
   "Pasithea": "haranya",
   "Pawqs": "haranya",
+  "Peanutt": "nuia",
   "Pek": "haranya",
+  "Persistent": "haranya",
   "Petch": "nuia",
   "Pians": "nuia",
+  "Pitsa": "pirate",
+  "Platin": "haranya",
   "Playforfun": "nuia",
+  "Poison Mine": "npc",
+  "Popoj": "nuia",
+  "Prect": "haranya",
   "Projectx": "haranya",
   "Proxxxxxxkfc": "nuia",
+  "Proxxxxxxmcc": "nuia",
   "Proxxxxxxss": "nuia",
   "Proxxxxxxzly": "nuia",
   "Purplebunny": "haranya",
   "Qlp": "nuia",
   "Quake": "nuia",
   "Quanta": "nuia",
+  "Quriosity": "pirate",
+  "Raddaan": "pirate",
+  "Raditz": "haranya",
+  "Rainz": "nuia",
   "Randomite": "haranya",
   "Ratel": "haranya",
+  "Rattata": "nuia",
   "Rayd": "nuia",
   "Redpower": "nuia",
   "Reistad": "haranya",
   "Renjianlai": "nuia",
+  "Reshkavtyza": "pirate",
   "Rethe": "nuia",
   "Rezolute": "haranya",
   "Rheilor": "nuia",
   "Riaaaaa": "nuia",
   "Riadh": "nuia",
+  "Richik": "pirate",
   "Righty": "haranya",
+  "Rin": "nuia",
+  "Riyo": "nuia",
+  "Roflerfish": "pirate",
   "Rosetaa": "nuia",
   "Rudyeeee": "nuia",
+  "Rupa": "nuia",
+  "Sakri": "nuia",
   "Sanxia": "nuia",
+  "Sanyazzmey": "pirate",
   "Savagei": "nuia",
   "Schnecke": "nuia",
+  "Scooc": "nuia",
   "Seelen": "nuia",
   "Sefira": "haranya",
   "Sefu": "nuia",
   "Sempie": "haranya",
   "Senlity": "nuia",
+  "Sere": "nuia",
   "Seytanirracim": "haranya",
+  "Sharonn": "haranya",
+  "Shijiayiya": "nuia",
   "Shijiuya": "nuia",
   "Shikiya": "haranya",
   "Silvanus": "haranya",
+  "Skhaan": "haranya",
+  "Skuiwei": "nuia",
+  "Skystarrr": "haranya",
   "Sleepmode": "nuia",
+  "Sleepy": "haranya",
+  "Slurm": "nuia",
   "Solitarpen": "nuia",
   "Soloblack": "haranya",
+  "Sooul": "haranya",
+  "Sorra": "nuia",
   "Soupp": "haranya",
   "Sowier": "nuia",
   "Speedforce": "nuia",
@@ -547,61 +704,91 @@ const DEFAULT_FACTIONS = {
   "Stability": "haranya",
   "Stephinee": "haranya",
   "Stoopy": "haranya",
+  "Strawberry": "nuia",
   "Stray": "nuia",
+  "Suckerpunch": "nuia",
+  "Sufu": "nuia",
   "Suicideboy": "nuia",
   "Sunday": "haranya",
   "Sunpw": "pirate",
+  "Superpirapirapirapira": "nuia",
   "Suqi": "nuia",
   "Suteai": "haranya",
+  "Swx": "pirate",
   "Synitrix": "nuia",
   "Tacita": "haranya",
   "Tacoalwayswww": "nuia",
+  "Tanks": "nuia",
+  "Tarum": "haranya",
   "Tbaike": "nuia",
+  "Tcoco": "nuia",
   "Teamo": "nuia",
   "Tenji": "nuia",
   "Tesssa": "nuia",
+  "Teutonic": "nuia",
+  "Thar": "haranya",
   "Thefear": "nuia",
+  "Tiramisu": "haranya",
   "Tol": "nuia",
+  "Toouvu": "haranya",
+  "TouchingGrass": "npc",
   "Tpaxalka": "pirate",
+  "Tripleslash": "haranya",
   "Tuohai": "nuia",
   "Tupa": "nuia",
   "Tvv": "nuia",
   "Tysia": "nuia",
+  "Ucoco": "nuia",
   "Ukroshka": "nuia",
   "Uloveme": "haranya",
   "Unease": "nuia",
   "Unlove": "haranya",
   "Urfinderfoe": "nuia",
   "Vak": "haranya",
+  "Veira": "nuia",
   "Vendemiaire": "nuia",
   "Violetmoon": "haranya",
   "Visenna": "nuia",
+  "Vison": "nuia",
   "Vivacia": "haranya",
+  "Vroom": "haranya",
+  "Vv": "npc",
   "Weaver": "nuia",
+  "Weeaboo": "haranya",
   "Wellli": "nuia",
   "Wendigonarist": "nuia",
   "Werzite": "haranya",
   "Wilcka": "nuia",
   "Wolffy": "nuia",
+  "Wqf": "nuia",
   "Xcoco": "nuia",
   "Xdd": "haranya",
   "Xiaoheixiong": "nuia",
   "Xiaoyixian": "nuia",
+  "Xiaozhang": "nuia",
   "Xingqing": "nuia",
   "Xinyue": "nuia",
   "Xixu": "nuia",
+  "Xueyingya": "nuia",
   "Xxv": "nuia",
+  "Ycooc": "nuia",
   "Yey": "nuia",
   "Ygc": "haranya",
   "Yimeng": "nuia",
+  "Yourname": "pirate",
   "Yqdreamtm": "haranya",
   "Yubaibaii": "nuia",
   "Yukko": "haranya",
   "Yuniee": "nuia",
+  "Zerlion": "haranya",
   "Zerof": "nuia",
+  "Zerotwo": "haranya",
+  "Zetara": "haranya",
+  "Zexcy": "haranya",
   "Zhonghuawang": "nuia",
   "Zircan": "nuia",
   "Алкопоне": "haranya",
+  "Арсеника": "pirate",
   "Бакиночка": "nuia",
   "Ббб": "nuia",
   "Буратина": "nuia",
@@ -609,34 +796,49 @@ const DEFAULT_FACTIONS = {
   "Всёлицовпобеде": "nuia",
   "Всётихо": "nuia",
   "Галганнет": "haranya",
+  "Гафрамэтатель": "pirate",
   "Злаяполторашка": "haranya",
+  "Зубастик": "npc",
+  "Иннос": "haranya",
   "Инстасамец": "haranya",
   "Йэне": "nuia",
   "Кавальский": "haranya",
   "Кавауса": "haranya",
   "Кайтер": "haranya",
   "Кареглазая": "nuia",
+  "Котёнокпаковозер": "haranya",
   "Красиваядевушка": "nuia",
+  "Лигр": "haranya",
   "Лисена": "nuia",
   "Лютяя": "nuia",
+  "Менямагазвать": "pirate",
   "Ногиотушей": "nuia",
+  "Опё": "haranya",
   "Подсудимый": "nuia",
   "Поймалатебя": "nuia",
   "Правь": "nuia",
+  "Сердешный": "pirate",
   "Синьорпельмиджано": "nuia",
   "Сквозьболь": "haranya",
   "Сынгляди": "haranya",
   "Тайа": "nuia",
   "Такиом": "nuia",
   "Терил": "nuia",
+  "Тестостероноваястяжка": "nuia",
+  "Тиффи": "pirate",
   "Топазик": "haranya",
   "Тренермертвых": "haranya",
   "Ульвер": "nuia",
+  "Уничтожение": "pirate",
+  "Филаурэль": "nuia",
+  "Халапешка": "haranya",
   "Худ": "haranya",
   "Чаю": "pirate",
   "Чотихо": "nuia",
   "Шушик": "haranya",
   "Элеана": "nuia",
+  "Эльгреко": "haranya",
+  "Эстрогеноваяхилка": "pirate",
 };
 
 /* loadFactions merges DEFAULT_FACTIONS (baked-in) with localStorage overrides.
@@ -679,24 +881,30 @@ const BOSS_NAMES = new Set([
 
 /**
  * Recompute a player's damage breakdown using the live NPC filter.
- * Returns { pvp, boss, total }
- *   pvp  — damage dealt to confirmed non-NPC targets (player vs player)
- *   boss — damage dealt to world-boss targets (PvE that still matters)
- *   total — pvp + boss (NPC damage excluded)
+ * Returns { pvp, boss, npcFaction, total }
+ *   pvp       — damage dealt to confirmed non-NPC, non-NPC-faction targets
+ *   boss      — damage dealt to world-boss targets
+ *   npcFaction— damage dealt to targets manually assigned to the NPC faction
+ *   total     — pvp + boss  (NPC spam and NPC-faction excluded from leaderboard)
  * Falls back to parser values while npcSet is still loading.
  */
-function computeDmgBreakdown(player, npcSet, npcOverrides) {
+function computeDmgBreakdown(player, npcSet, npcOverrides, factions) {
   if (npcSet === null) {
-    // NPC set not yet loaded — use parser's best-guess values
-    return { pvp: player.pvpDmg, boss: player.pveDmg, total: player.totalDmg };
+    return { pvp: player.pvpDmg, boss: player.pveDmg, npcFaction: 0, total: player.totalDmg };
   }
-  let pvp = 0, boss = 0;
+  let pvp = 0, boss = 0, npcFaction = 0;
   for (const [target, dmg] of Object.entries(player.targets)) {
-    if (BOSS_NAMES.has(target)) boss += dmg;
-    else if (!isNpc(target, npcSet, npcOverrides)) pvp += dmg;
-    // else: regular NPC target — excluded from all totals
+    if (BOSS_NAMES.has(target)) {
+      boss += dmg;
+    } else if (isNpc(target, npcSet, npcOverrides)) {
+      // Regular NPC — excluded entirely
+    } else if ((factions || {})[target] === 'npc') {
+      npcFaction += dmg;
+    } else {
+      pvp += dmg;
+    }
   }
-  return { pvp, boss, total: pvp + boss };
+  return { pvp, boss, npcFaction, total: pvp + boss };
 }
 
 /* Auto-detect skill category from log data, then apply any manual pin */
@@ -926,6 +1134,7 @@ function FactionBadge({ faction }) {
   const map = { haranya: ['faction-badge faction-har','Haranya'],
                 nuia:    ['faction-badge faction-nui','Nuia'],
                 pirate:  ['faction-badge faction-pir','Pirate'],
+                npc:     ['faction-badge faction-npc','NPC'],
                 unknown: ['faction-badge faction-unk','?'] };
   const [cls, label] = map[faction] || map.unknown;
   return <span className={cls}>{label}</span>;
@@ -937,10 +1146,10 @@ function OverviewTab({ data, factions, npcSet, npcOverrides }) {
   const allPlayers = Object.values(players);
   const playerList = allPlayers.filter(p => !isNpc(p.name, npcSet, npcOverrides));
   const npcCount   = allPlayers.length - playerList.length;
-  const totalDmg  = playerList.reduce((s,p)=>s+computeDmgBreakdown(p,npcSet,npcOverrides).total,0);
+  const totalDmg  = playerList.reduce((s,p)=>s+computeDmgBreakdown(p,npcSet,npcOverrides,factions).total,0);
   const totalHeal = playerList.reduce((s,p)=>s+p.totalHeal,0);
   const topAttackers = [...playerList]
-    .sort((a,b)=>computeDmgBreakdown(b,npcSet,npcOverrides).total - computeDmgBreakdown(a,npcSet,npcOverrides).total)
+    .sort((a,b)=>computeDmgBreakdown(b,npcSet,npcOverrides,factions).total - computeDmgBreakdown(a,npcSet,npcOverrides,factions).total)
     .slice(0,5);
   const topHealers = [...playerList].sort((a,b)=>b.totalHeal-a.totalHeal).filter(p=>p.totalHeal>0).slice(0,5);
   const skillArr = Object.entries(skillsMap)
@@ -950,7 +1159,7 @@ function OverviewTab({ data, factions, npcSet, npcOverrides }) {
   const debuffArr = Object.entries(debuffMap)
     .map(([n,d])=>({name:n,count:d.count,targets:d.targets.size}))
     .sort((a,b)=>b.count-a.count).slice(0,5);
-  const maxAtk  = computeDmgBreakdown(topAttackers[0]??{targets:{}}, npcSet, npcOverrides).total || 1;
+  const maxAtk  = computeDmgBreakdown(topAttackers[0]??{targets:{}}, npcSet, npcOverrides, factions).total || 1;
   const maxHeal = topHealers[0]?.totalHeal || 1;
 
   return (
@@ -1004,7 +1213,7 @@ function OverviewTab({ data, factions, npcSet, npcOverrides }) {
               <span style={{fontFamily:'Cinzel,serif',fontSize:'13px',fontWeight:'700',color:'var(--text-muted)',width:'22px',textAlign:'center'}}>#{i+1}</span>
               <FactionBadge faction={factions[p.name]||'unknown'} />
               <span style={{flex:1,fontSize:'14px',fontWeight:'700'}}>{p.name}</span>
-              <span style={{fontFamily:'Cinzel,serif',fontSize:'14px',fontWeight:'700',color:'var(--dmg)'}}>{fmtNum(computeDmgBreakdown(p,npcSet,npcOverrides).total)}</span>
+              <span style={{fontFamily:'Cinzel,serif',fontSize:'14px',fontWeight:'700',color:'var(--dmg)'}}>{fmtNum(computeDmgBreakdown(p,npcSet,npcOverrides,factions).total)}</span>
             </div>
           ))}
         </div>
@@ -1061,8 +1270,8 @@ function LeaderboardTab({ data, factions, npcSet, npcOverrides, setNpcOverride, 
       })
       .sort((a,b) => {
         if (sort==='heal') return b.totalHeal - a.totalHeal;
-        const ba = computeDmgBreakdown(a, npcSet, npcOverrides);
-        const bb = computeDmgBreakdown(b, npcSet, npcOverrides);
+        const ba = computeDmgBreakdown(a, npcSet, npcOverrides, factions);
+        const bb = computeDmgBreakdown(b, npcSet, npcOverrides, factions);
         if (sort==='pvp')  return bb.pvp  - ba.pvp;
         if (sort==='boss') return bb.boss - ba.boss;
         return bb.total - ba.total; // 'dmg' = pvp + boss
@@ -1073,7 +1282,7 @@ function LeaderboardTab({ data, factions, npcSet, npcOverrides, setNpcOverride, 
 
   function getSortVal(p) {
     if (sort==='heal') return p.totalHeal;
-    const bd = computeDmgBreakdown(p, npcSet, npcOverrides);
+    const bd = computeDmgBreakdown(p, npcSet, npcOverrides, factions);
     if (sort==='pvp')  return bd.pvp;
     if (sort==='boss') return bd.boss;
     return bd.total; // 'dmg'
@@ -1566,6 +1775,7 @@ function DebuffsTab({ data, factions, hiddenDebuffs, toggleDebuff }) {
     {key:'haranya',label:'Haranya',color:'var(--har)'},
     {key:'nuia',   label:'Nuia',   color:'var(--nui)'},
     {key:'pirate', label:'Pirate', color:'var(--pir)'},
+    {key:'npc',    label:'NPC',    color:'var(--npc)'},
   ];
 
   // Helper: per-player skill uses (checks damage → heal → casts to avoid double-counting)
@@ -1785,6 +1995,7 @@ function TeamsTab({ data, factions, setFactions }) {
           <div className="stat-box"><div className="stat-val" style={{color:'var(--har)'}}>{Object.values(factions).filter(f=>f==='haranya').length}</div><div className="stat-lbl" style={{color:'var(--har)'}}>Haranya</div></div>
           <div className="stat-box"><div className="stat-val" style={{color:'var(--nui)'}}>{Object.values(factions).filter(f=>f==='nuia').length}</div><div className="stat-lbl" style={{color:'var(--nui)'}}>Nuia</div></div>
           <div className="stat-box"><div className="stat-val" style={{color:'var(--pir)'}}>{Object.values(factions).filter(f=>f==='pirate').length}</div><div className="stat-lbl" style={{color:'var(--pir)'}}>Pirate</div></div>
+          <div className="stat-box"><div className="stat-val" style={{color:'var(--npc)'}}>{Object.values(factions).filter(f=>f==='npc').length}</div><div className="stat-lbl" style={{color:'var(--npc)'}}>NPC</div></div>
         </div>
         <div style={{display:'flex',gap:'8px',marginBottom:'12px',flexWrap:'wrap'}}>
           <button className="icon-btn" onClick={()=>setFactions({})}>Reset All</button>
@@ -1805,7 +2016,7 @@ function TeamsTab({ data, factions, setFactions }) {
               <span style={{fontSize:'12px',color:'var(--text-muted)',whiteSpace:'nowrap'}}>{fmtNum(p.totalDmg)} dmg</span>
             </div>
             <div className="faction-sel-grp">
-              {[['haranya','har','Har'],['nuia','nui','Nui'],['pirate','pir','Pir'],['unknown','unk','?']].map(([fid,cls,label])=>(
+              {[['haranya','har','Har'],['nuia','nui','Nui'],['pirate','pir','Pir'],['npc','npc','NPC'],['unknown','unk','?']].map(([fid,cls,label])=>(
                 <button key={fid} className={`faction-sel-btn ${cls}${(factions[p.name]||'unknown')===fid?' active':''}`}
                   onClick={()=>setF(p.name,fid)}>{label}</button>
               ))}
@@ -1837,7 +2048,7 @@ function PlayerModal({ player, data, factions, setFactions, npcSet, npcOverrides
   const faction = factions[player.name]||'unknown';
   function setF(f) { setFactions(prev=>({...prev,[player.name]:f})); }
   const critRate = player.attackCount > 0 ? Math.round(player.critCount/player.attackCount*100) : 0;
-  const bd       = computeDmgBreakdown(player, npcSet, npcOverrides);
+  const bd       = computeDmgBreakdown(player, npcSet, npcOverrides, factions);
 
   // Clicking a heal target opens their full PlayerModal
   const [linkedPlayer, setLinkedPlayer] = useState(null);
@@ -1872,7 +2083,7 @@ function PlayerModal({ player, data, factions, setFactions, npcSet, npcOverrides
             <div style={{fontSize:'13px',color:'var(--text-muted)'}}>Detailed combat breakdown</div>
             {/* Faction quick-assign */}
             <div style={{display:'flex',gap:'5px',marginTop:'8px'}}>
-              {[['haranya','har','Haranya'],['nuia','nui','Nuia'],['pirate','pir','Pirate'],['unknown','unk','Unknown']].map(([fid,cls,label])=>(
+              {[['haranya','har','Haranya'],['nuia','nui','Nuia'],['pirate','pir','Pirate'],['npc','npc','NPC'],['unknown','unk','Unknown']].map(([fid,cls,label])=>(
                 <button key={fid} className={`faction-sel-btn ${cls}${faction===fid?' active':''}`}
                   onClick={()=>setF(fid)}>{label}</button>
               ))}
@@ -1910,6 +2121,10 @@ function PlayerModal({ player, data, factions, setFactions, npcSet, npcOverrides
                 <div className="stat-lbl">Boss Damage</div>
               </div>
               <div className="stat-box">
+                <div className="stat-val" style={{color:'var(--npc)'}}>{fmtNum(bd.npcFaction)}</div>
+                <div className="stat-lbl">NPC Faction</div>
+              </div>
+              <div className="stat-box">
                 <div className="stat-val heal">{fmtNum(player.totalHeal)}</div>
                 <div className="stat-lbl">Total Healing</div>
               </div>
@@ -1940,15 +2155,21 @@ function PlayerModal({ player, data, factions, setFactions, npcSet, npcOverrides
                 Top {topTargets.length} PvP targets
                 {npcTargets.length>0&&<span style={{marginLeft:'8px',opacity:.6}}>({npcTargets.length} NPC target{npcTargets.length!==1?'s':''} filtered)</span>}
               </div>
-              {topTargets.map(([target,dmg])=>(
-                <div key={target} className="targets-row">
-                  <span className="targets-row-name">{target}</span>
-                  <div className="targets-bar-wrap">
-                    <div className="mini-bar-track"><div className="mini-bar-fill mini-bar-dmg" style={{width:(dmg/maxTargetDmg*100)+'%'}} /></div>
+              {topTargets.map(([target,dmg])=>{
+                const tFaction = factions[target] || 'unknown';
+                return (
+                  <div key={target} className="targets-row">
+                    <div style={{display:'flex',alignItems:'center',gap:'5px',flex:1,minWidth:0}}>
+                      <span className="targets-row-name" style={{flex:'unset'}}>{target}</span>
+                      {tFaction !== 'unknown' && <FactionBadge faction={tFaction} />}
+                    </div>
+                    <div className="targets-bar-wrap">
+                      <div className="mini-bar-track"><div className="mini-bar-fill mini-bar-dmg" style={{width:(dmg/maxTargetDmg*100)+'%'}} /></div>
+                    </div>
+                    <span className="targets-dmg">{fmtNum(dmg)}</span>
                   </div>
-                  <span className="targets-dmg">{fmtNum(dmg)}</span>
-                </div>
-              ))}
+                );
+              })}
             </div>
           )}
 
