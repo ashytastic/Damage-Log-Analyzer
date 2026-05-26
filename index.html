@@ -324,7 +324,324 @@ function lsSet(key, val) {
   try { localStorage.setItem(key, JSON.stringify(val)); } catch {}
 }
 
-function loadFactions()      { return lsGet(LS_FACTIONS, {}); }
+const DEFAULT_FACTIONS = {
+  "Adai": "nuia",
+  "Ailara": "nuia",
+  "Aimi": "nuia",
+  "Akarkulia": "nuia",
+  "Akfenggg": "nuia",
+  "Akxxxx": "nuia",
+  "Anci": "haranya",
+  "Annoyel": "haranya",
+  "Aomin": "haranya",
+  "Apocalypse": "nuia",
+  "Aroi": "nuia",
+  "Ash": "nuia",
+  "Astres": "nuia",
+  "Ayr": "nuia",
+  "Azgg": "nuia",
+  "Azoz": "nuia",
+  "Bangaranga": "nuia",
+  "Bangarangaa": "nuia",
+  "Baoer": "nuia",
+  "Beefstew": "haranya",
+  "Belko": "nuia",
+  "Bertella": "nuia",
+  "Bidam": "haranya",
+  "Bilibili": "nuia",
+  "Bingxizi": "nuia",
+  "Blacks": "nuia",
+  "Blyaaaat": "nuia",
+  "Bozola": "haranya",
+  "Buduang": "nuia",
+  "Buhaoshua": "nuia",
+  "Bunnny": "nuia",
+  "Buwanshui": "nuia",
+  "Calen": "nuia",
+  "Calipackk": "haranya",
+  "Calmi": "haranya",
+  "Candys": "nuia",
+  "Capybara": "haranya",
+  "Caramell": "nuia",
+  "Castamere": "nuia",
+  "Chupa": "nuia",
+  "Chups": "nuia",
+  "Cowboy": "nuia",
+  "Csimi": "haranya",
+  "Cucya": "haranya",
+  "Curefortheitch": "haranya",
+  "Dacapox": "nuia",
+  "Dannni": "nuia",
+  "Darkknighxt": "nuia",
+  "Darlyy": "haranya",
+  "Daurio": "nuia",
+  "Demettra": "haranya",
+  "Devz": "nuia",
+  "Dizik": "nuia",
+  "Dlang": "nuia",
+  "Dloveg": "nuia",
+  "Dreamland": "nuia",
+  "Driz": "nuia",
+  "Duge": "nuia",
+  "Efialths": "nuia",
+  "Elaineeee": "nuia",
+  "Elchappo": "nuia",
+  "Encke": "nuia",
+  "Enmity": "nuia",
+  "Ensure": "nuia",
+  "Epas": "nuia",
+  "Ephemeral": "nuia",
+  "Epiphany": "nuia",
+  "Escanoooor": "nuia",
+  "Eurus": "haranya",
+  "Ewwwwwwwww": "haranya",
+  "Exlim": "haranya",
+  "Eyekiller": "haranya",
+  "Facto": "haranya",
+  "Fajiaofajiao": "nuia",
+  "Falkath": "haranya",
+  "Fankypants": "nuia",
+  "Feizih": "haranya",
+  "Ferventbot": "nuia",
+  "Fiercepain": "haranya",
+  "Firrst": "haranya",
+  "Forxas": "haranya",
+  "Fragrantly": "nuia",
+  "Fraukadse": "nuia",
+  "Fricker": "haranya",
+  "Frozzel": "nuia",
+  "Fuh": "haranya",
+  "Fuoco": "nuia",
+  "Gangzi": "nuia",
+  "Gece": "haranya",
+  "Geraltwitcher": "nuia",
+  "Gogsona": "nuia",
+  "Granti": "nuia",
+  "Gries": "nuia",
+  "Grimmjow": "haranya",
+  "Guizhenghe": "nuia",
+  "Gulag": "nuia",
+  "Hahamei": "nuia",
+  "Hakujitsu": "nuia",
+  "Happyhappy": "haranya",
+  "Hardpley": "haranya",
+  "Hbxd": "nuia",
+  "Hebat": "nuia",
+  "Hemumumu": "nuia",
+  "Heroise": "haranya",
+  "Hessa": "nuia",
+  "Hideki": "haranya",
+  "Huanghu": "nuia",
+  "Hyosh": "nuia",
+  "Ikk": "haranya",
+  "Inshala": "haranya",
+  "Insure": "nuia",
+  "Iqwe": "nuia",
+  "Isaacs": "nuia",
+  "Itsyou": "nuia",
+  "Jadefox": "nuia",
+  "Justacuterat": "nuia",
+  "Kairanii": "nuia",
+  "Kallavi": "haranya",
+  "Kamikuya": "haranya",
+  "Katiya": "haranya",
+  "Kbbovo": "haranya",
+  "Kelpie": "nuia",
+  "Ketchunezz": "nuia",
+  "Kexar": "nuia",
+  "Kiko": "haranya",
+  "Kinggreed": "nuia",
+  "Kiooolu": "nuia",
+  "Kivaru": "nuia",
+  "Krox": "haranya",
+  "Kudzan": "nuia",
+  "Kuizhan": "nuia",
+  "Kyoraku": "haranya",
+  "Lamz": "nuia",
+  "Lancoco": "nuia",
+  "Laoyang": "nuia",
+  "Lilmousey": "haranya",
+  "Lingchenxiaoyu": "nuia",
+  "Lllll": "nuia",
+  "Lusamine": "nuia",
+  "Lxhaoo": "nuia",
+  "Madara": "haranya",
+  "Mafuyu": "nuia",
+  "Maniakos": "haranya",
+  "Meise": "nuia",
+  "Mellison": "nuia",
+  "Mialuna": "haranya",
+  "Midi": "nuia",
+  "Mietze": "nuia",
+  "Minoxidil": "nuia",
+  "Monterik": "haranya",
+  "Mop": "nuia",
+  "Mosexuanran": "nuia",
+  "Mozell": "haranya",
+  "Nagamasa": "nuia",
+  "Nerikiri": "haranya",
+  "Newstart": "haranya",
+  "Nexiel": "nuia",
+  "Nier": "nuia",
+  "Nong": "nuia",
+  "Norxdrenxline": "nuia",
+  "Nosieep": "haranya",
+  "Nosleep": "haranya",
+  "Nostii": "nuia",
+  "Nymzo": "haranya",
+  "Okloser": "haranya",
+  "Oktt": "nuia",
+  "Oldbich": "nuia",
+  "Once": "pirate",
+  "Onezero": "nuia",
+  "Ophellian": "nuia",
+  "Painy": "nuia",
+  "Pangchong": "nuia",
+  "Pasithea": "haranya",
+  "Pawqs": "haranya",
+  "Pek": "haranya",
+  "Petch": "nuia",
+  "Pians": "nuia",
+  "Playforfun": "nuia",
+  "Projectx": "haranya",
+  "Proxxxxxxkfc": "nuia",
+  "Proxxxxxxss": "nuia",
+  "Proxxxxxxzly": "nuia",
+  "Purplebunny": "haranya",
+  "Qlp": "nuia",
+  "Quake": "nuia",
+  "Quanta": "nuia",
+  "Randomite": "haranya",
+  "Ratel": "haranya",
+  "Rayd": "nuia",
+  "Redpower": "nuia",
+  "Reistad": "haranya",
+  "Renjianlai": "nuia",
+  "Rethe": "nuia",
+  "Rezolute": "haranya",
+  "Rheilor": "nuia",
+  "Riaaaaa": "nuia",
+  "Riadh": "nuia",
+  "Righty": "haranya",
+  "Rosetaa": "nuia",
+  "Rudyeeee": "nuia",
+  "Sanxia": "nuia",
+  "Savagei": "nuia",
+  "Schnecke": "nuia",
+  "Seelen": "nuia",
+  "Sefira": "haranya",
+  "Sefu": "nuia",
+  "Sempie": "haranya",
+  "Senlity": "nuia",
+  "Seytanirracim": "haranya",
+  "Shijiuya": "nuia",
+  "Shikiya": "haranya",
+  "Silvanus": "haranya",
+  "Sleepmode": "nuia",
+  "Solitarpen": "nuia",
+  "Soloblack": "haranya",
+  "Soupp": "haranya",
+  "Sowier": "nuia",
+  "Speedforce": "nuia",
+  "Ssunday": "nuia",
+  "Stability": "haranya",
+  "Stephinee": "haranya",
+  "Stoopy": "haranya",
+  "Stray": "nuia",
+  "Suicideboy": "nuia",
+  "Sunday": "haranya",
+  "Sunpw": "pirate",
+  "Suqi": "nuia",
+  "Suteai": "haranya",
+  "Synitrix": "nuia",
+  "Tacita": "haranya",
+  "Tacoalwayswww": "nuia",
+  "Tbaike": "nuia",
+  "Teamo": "nuia",
+  "Tenji": "nuia",
+  "Tesssa": "nuia",
+  "Thefear": "nuia",
+  "Tol": "nuia",
+  "Tpaxalka": "pirate",
+  "Tuohai": "nuia",
+  "Tupa": "nuia",
+  "Tvv": "nuia",
+  "Tysia": "nuia",
+  "Ukroshka": "nuia",
+  "Uloveme": "haranya",
+  "Unease": "nuia",
+  "Unlove": "haranya",
+  "Urfinderfoe": "nuia",
+  "Vak": "haranya",
+  "Vendemiaire": "nuia",
+  "Violetmoon": "haranya",
+  "Visenna": "nuia",
+  "Vivacia": "haranya",
+  "Weaver": "nuia",
+  "Wellli": "nuia",
+  "Wendigonarist": "nuia",
+  "Werzite": "haranya",
+  "Wilcka": "nuia",
+  "Wolffy": "nuia",
+  "Xcoco": "nuia",
+  "Xdd": "haranya",
+  "Xiaoheixiong": "nuia",
+  "Xiaoyixian": "nuia",
+  "Xingqing": "nuia",
+  "Xinyue": "nuia",
+  "Xixu": "nuia",
+  "Xxv": "nuia",
+  "Yey": "nuia",
+  "Ygc": "haranya",
+  "Yimeng": "nuia",
+  "Yqdreamtm": "haranya",
+  "Yubaibaii": "nuia",
+  "Yukko": "haranya",
+  "Yuniee": "nuia",
+  "Zerof": "nuia",
+  "Zhonghuawang": "nuia",
+  "Zircan": "nuia",
+  "Алкопоне": "haranya",
+  "Бакиночка": "nuia",
+  "Ббб": "nuia",
+  "Буратина": "nuia",
+  "Великолепный": "nuia",
+  "Всёлицовпобеде": "nuia",
+  "Всётихо": "nuia",
+  "Галганнет": "haranya",
+  "Злаяполторашка": "haranya",
+  "Инстасамец": "haranya",
+  "Йэне": "nuia",
+  "Кавальский": "haranya",
+  "Кавауса": "haranya",
+  "Кайтер": "haranya",
+  "Кареглазая": "nuia",
+  "Красиваядевушка": "nuia",
+  "Лисена": "nuia",
+  "Лютяя": "nuia",
+  "Ногиотушей": "nuia",
+  "Подсудимый": "nuia",
+  "Поймалатебя": "nuia",
+  "Правь": "nuia",
+  "Синьорпельмиджано": "nuia",
+  "Сквозьболь": "haranya",
+  "Сынгляди": "haranya",
+  "Тайа": "nuia",
+  "Такиом": "nuia",
+  "Терил": "nuia",
+  "Топазик": "haranya",
+  "Тренермертвых": "haranya",
+  "Ульвер": "nuia",
+  "Худ": "haranya",
+  "Чаю": "pirate",
+  "Чотихо": "nuia",
+  "Шушик": "haranya",
+  "Элеана": "nuia",
+};
+
+/* loadFactions merges DEFAULT_FACTIONS (baked-in) with localStorage overrides.
+   User changes always win — stored values take priority over the defaults. */
+function loadFactions()      { return { ...DEFAULT_FACTIONS, ...lsGet(LS_FACTIONS, {}) }; }
 function saveFactions(f)     { lsSet(LS_FACTIONS, f); }
 function loadHiddenSkills()  { return new Set(lsGet(LS_HIDDEN_SKILLS, [])); }
 function saveHiddenSkills(s) { lsSet(LS_HIDDEN_SKILLS, [...s]); }
@@ -848,10 +1165,193 @@ function CatBadge({ skillName, autoCategory, skillCats, setSkillCat }) {
   );
 }
 
-function SkillsTab({ data, hiddenSkills, toggleSkill, clearHiddenSkills, skillCats, setSkillCat }) {
+/* ── Skill detail modal ────────────────────────────────────────────────────
+   Shows per-player usage breakdown for any clicked skill row.            */
+function SkillModal({ skillName, category, data, factions, setFactions, dur, npcSet, npcOverrides, onClose }) {
+  const { skillsMap, players } = data;
+  const skillData = skillsMap[skillName] || { totalDmg:0, totalHeal:0, uses:0 };
+  const isDmg  = category === 'damage';
+  const isHeal = category === 'healing';
+  const valColor = isDmg ? 'var(--dmg)' : isHeal ? 'var(--heal)' : 'var(--gold)';
+  const barCls   = isDmg ? 'mini-bar-dmg' : isHeal ? 'mini-bar-heal' : 'mini-bar-util';
+
+  // Player clicked inside this modal → open their full PlayerModal on top
+  const [selectedPlayer, setSelectedPlayer] = useState(null);
+
+  // Build per-player breakdown from individual player records
+  const breakdown = useMemo(() => {
+    const list = [];
+    for (const [pName, p] of Object.entries(players)) {
+      if (isNpc(pName, npcSet, npcOverrides)) continue;
+      let uses = 0, value = 0, critCount = 0;
+      if (isDmg) {
+        const sk = p.skills?.[skillName];
+        if (sk?.uses > 0) { uses = sk.uses; value = sk.totalDmg; critCount = sk.critCount || 0; }
+      } else if (isHeal) {
+        const hsk = p.healSkills?.[skillName];
+        if (hsk?.uses > 0) { uses = hsk.uses; value = hsk.totalHeal; }
+      } else {
+        uses = p.casts?.[skillName] || 0;
+      }
+      if (uses > 0) list.push({ name:pName, uses, value, critCount });
+    }
+    return list.sort((a,b) => b.value - a.value || b.uses - a.uses);
+  }, [players, skillName, isDmg, isHeal, npcSet, npcOverrides]);
+
+  const maxVal = breakdown[0] ? (breakdown[0].value || breakdown[0].uses) : 1;
+  const totalUses = breakdown.reduce((s,p) => s + p.uses, 0);
+
+  useEffect(() => {
+    const h = e => { if (e.key === 'Escape') onClose(); };
+    window.addEventListener('keydown', h);
+    return () => window.removeEventListener('keydown', h);
+  }, [onClose]);
+
+  const gridCols = isDmg ? '1fr 52px 100px 80px 58px' :
+                   isHeal ? '1fr 52px 100px 80px' :
+                             '1fr 52px 1fr';
+
+  return (
+    <div className="modal-backdrop" onClick={e => { if (e.target === e.currentTarget) onClose(); }}>
+      {/* Player detail — rendered on top of this modal when a row is clicked */}
+      {selectedPlayer && (
+        <PlayerModal
+          player={data.players[selectedPlayer]}
+          data={data}
+          factions={factions}
+          setFactions={setFactions}
+          npcSet={npcSet}
+          npcOverrides={npcOverrides}
+          onClose={()=>setSelectedPlayer(null)}
+        />
+      )}
+      <div className="modal-panel">
+        <div className="modal-header">
+          <div>
+            <div className="modal-player-name" style={{color: valColor}}>{skillName}</div>
+            <div style={{fontSize:'13px',color:'var(--text-muted)'}}>
+              {isDmg ? '⚔ Damage' : isHeal ? '💚 Healing' : '✨ Utility'} skill
+              &nbsp;·&nbsp;{breakdown.length} player{breakdown.length !== 1 ? 's' : ''} used this
+              &nbsp;·&nbsp;<span style={{color:'var(--gold)',fontSize:'12px'}}>click a row for full player detail</span>
+            </div>
+          </div>
+          <button className="modal-close" onClick={onClose}>✕ Close</button>
+        </div>
+        <div className="modal-body">
+          {/* Summary stats */}
+          <div className="g4" style={{gap:'10px',marginBottom:'18px'}}>
+            <div className="stat-box">
+              <div className="stat-val">{totalUses}</div>
+              <div className="stat-lbl">Total Uses</div>
+            </div>
+            {isDmg && <>
+              <div className="stat-box">
+                <div className="stat-val dmg">{fmtNum(skillData.totalDmg)}</div>
+                <div className="stat-lbl">Total Damage</div>
+              </div>
+              <div className="stat-box">
+                <div className="stat-val">{skillData.uses > 0 ? fmtNum(Math.round(skillData.totalDmg/skillData.uses)) : '—'}</div>
+                <div className="stat-lbl">Avg / Use</div>
+              </div>
+              <div className="stat-box">
+                <div className="stat-val">{fmtDps(skillData.totalDmg, dur)}</div>
+                <div className="stat-lbl">Session DPS</div>
+              </div>
+            </>}
+            {isHeal && <>
+              <div className="stat-box">
+                <div className="stat-val heal">{fmtNum(skillData.totalHeal)}</div>
+                <div className="stat-lbl">Total Healing</div>
+              </div>
+              <div className="stat-box">
+                <div className="stat-val">{skillData.uses > 0 ? fmtNum(Math.round(skillData.totalHeal/skillData.uses)) : '—'}</div>
+                <div className="stat-lbl">Avg / Use</div>
+              </div>
+              <div className="stat-box">
+                <div className="stat-val">{breakdown.length}</div>
+                <div className="stat-lbl">Healers</div>
+              </div>
+            </>}
+          </div>
+
+          {/* Per-player table */}
+          <div className="modal-section-title">👤 Player Breakdown</div>
+          {/* Header */}
+          <div style={{display:'grid',gridTemplateColumns:gridCols,gap:'8px',
+            padding:'5px 12px',background:'var(--card2)',borderRadius:'6px 6px 0 0',
+            fontSize:'10px',fontWeight:'700',letterSpacing:'1.5px',textTransform:'uppercase',color:'var(--text-muted)'}}>
+            <span>Player</span>
+            <span style={{textAlign:'center'}}>Uses</span>
+            {(isDmg||isHeal) && <span style={{textAlign:'right'}}>{isDmg ? 'Damage' : 'Healing'}</span>}
+            {(isDmg||isHeal) && <span style={{textAlign:'right'}}>Avg / Use</span>}
+            {isDmg  && <span style={{textAlign:'center'}}>Crit%</span>}
+            {!isDmg && !isHeal && <span>Share</span>}
+          </div>
+
+          {breakdown.length ? breakdown.map((p, idx) => {
+            const avg      = p.uses > 0 && p.value > 0 ? Math.round(p.value / p.uses) : 0;
+            const barVal   = (isDmg || isHeal) ? p.value : p.uses;
+            const pct      = (barVal / maxVal) * 100;
+            const crit     = (isDmg && p.uses > 0) ? Math.round(p.critCount / p.uses * 100) : null;
+            const isTop    = idx === 0;
+            const canClick = !!data.players[p.name]; // only real players, not aggregated
+            return (
+              <div key={p.name}
+                onClick={canClick ? ()=>setSelectedPlayer(p.name) : undefined}
+                style={{borderBottom:'1px solid var(--border)',
+                  background: isTop ? 'var(--gold-glow)' : 'transparent',
+                  cursor: canClick ? 'pointer' : 'default',
+                  transition:'background .1s'}}
+                onMouseEnter={e=>{ if(canClick) e.currentTarget.style.background = isTop?'var(--gold-glow)':'var(--card2)'; }}
+                onMouseLeave={e=>{ e.currentTarget.style.background = isTop?'var(--gold-glow)':'transparent'; }}>
+                <div style={{display:'grid',gridTemplateColumns:gridCols,gap:'8px',
+                  padding:'8px 12px',alignItems:'center'}}>
+                  <div style={{display:'flex',alignItems:'center',gap:'6px',minWidth:0}}>
+                    {isTop && <span style={{fontSize:'12px'}}>🥇</span>}
+                    <FactionBadge faction={factions[p.name] || 'unknown'} />
+                    <span style={{fontSize:'14px',fontWeight:'700',overflow:'hidden',textOverflow:'ellipsis',whiteSpace:'nowrap'}}>{p.name}</span>
+                  </div>
+                  <span style={{textAlign:'center',fontSize:'13px',color:'var(--text-dim)'}}>{p.uses}×</span>
+                  {(isDmg||isHeal) && (
+                    <span style={{textAlign:'right',fontFamily:'Cinzel,serif',fontWeight:'700',color:valColor,fontSize:'14px'}}>
+                      {fmtNum(p.value)}
+                    </span>
+                  )}
+                  {(isDmg||isHeal) && (
+                    <span style={{textAlign:'right',fontSize:'13px',color:'var(--text-dim)'}}>
+                      {avg > 0 ? fmtNum(avg) : '—'}
+                    </span>
+                  )}
+                  {isDmg && (
+                    <span style={{textAlign:'center',fontSize:'13px',
+                      color: crit > 50 ? 'var(--warn)' : 'var(--text-dim)'}}>
+                      {crit !== null ? crit + '%' : '—'}
+                    </span>
+                  )}
+                  {!isDmg && !isHeal && (
+                    <div><div className="mini-bar-track"><div className={`mini-bar-fill ${barCls}`} style={{width:pct+'%'}} /></div></div>
+                  )}
+                </div>
+                {(isDmg || isHeal) && (
+                  <div style={{padding:'0 12px 8px'}}>
+                    <div className="mini-bar-track"><div className={`mini-bar-fill ${barCls}`} style={{width:pct+'%'}} /></div>
+                  </div>
+                )}
+              </div>
+            );
+          }) : <div className="empty">No player data found for this skill.</div>}
+        </div>
+      </div>
+    </div>
+  );
+}
+
+function SkillsTab({ data, hiddenSkills, toggleSkill, clearHiddenSkills, skillCats, setSkillCat,
+                     factions, setFactions, npcSet, npcOverrides }) {
   const [sub, setSub] = useState('damage');
   const [search, setSearch] = useState('');
   const [showHidden, setShowHidden] = useState(false);
+  const [selectedSkill, setSelectedSkill] = useState(null); // {name, category}
   const { skillsMap, dur } = data;
 
   const all = useMemo(() => Object.entries(skillsMap).map(([name,s])=>({name,...s})), [skillsMap]);
@@ -893,6 +1393,14 @@ function SkillsTab({ data, hiddenSkills, toggleSkill, clearHiddenSkills, skillCa
 
   return (
     <div>
+      {selectedSkill && (
+        <SkillModal
+          skillName={selectedSkill.name} category={selectedSkill.category}
+          data={data} factions={factions} setFactions={setFactions} dur={dur}
+          npcSet={npcSet} npcOverrides={npcOverrides}
+          onClose={()=>setSelectedSkill(null)}
+        />
+      )}
       {/* Controls bar */}
       <div style={{display:'flex',gap:'8px',marginBottom:'12px',alignItems:'center',flexWrap:'wrap'}}>
         <div className="sub-tabs" style={{margin:0}}>
@@ -913,7 +1421,7 @@ function SkillsTab({ data, hiddenSkills, toggleSkill, clearHiddenSkills, skillCa
       {/* Hidden-skills banner */}
       <div style={{display:'flex',alignItems:'center',gap:'10px',marginBottom:'10px',flexWrap:'wrap'}}>
         <span style={{fontSize:'13px',color:'var(--text-muted)'}}>
-          Click 👁 on any row to hide it from this list. State is saved across sessions.
+          Click a row to see who used it · Click 👁 to hide · State saved across sessions
         </span>
         {hiddenCount > 0 && (
           <>
@@ -940,7 +1448,8 @@ function SkillsTab({ data, hiddenSkills, toggleSkill, clearHiddenSkills, skillCa
               const hidden = hiddenSkills.has(sk.name);
               return (
                 <div key={sk.name} className="skill-row dmg-cols"
-                  style={{gridTemplateColumns:'32px 28px 1fr 60px 100px 80px 110px 120px',opacity:hidden?0.35:1}}>
+                  onClick={()=>!hidden&&setSelectedSkill({name:sk.name,category:'damage'})}
+                  style={{gridTemplateColumns:'32px 28px 1fr 60px 100px 80px 110px 120px',opacity:hidden?0.35:1,cursor:'pointer'}}>
                   <EyeBtn skillName={sk.name} />
                   <CatBadge skillName={sk.name} autoCategory="damage" skillCats={skillCats} setSkillCat={setSkillCat} />
                   <span className="skill-name">{sk.name}</span>
@@ -965,7 +1474,8 @@ function SkillsTab({ data, hiddenSkills, toggleSkill, clearHiddenSkills, skillCa
               const hidden = hiddenSkills.has(sk.name);
               return (
                 <div key={sk.name} className="skill-row heal-cols"
-                  style={{gridTemplateColumns:'32px 28px 1fr 60px 100px 80px 120px',opacity:hidden?0.35:1}}>
+                  onClick={()=>!hidden&&setSelectedSkill({name:sk.name,category:'healing'})}
+                  style={{gridTemplateColumns:'32px 28px 1fr 60px 100px 80px 120px',opacity:hidden?0.35:1,cursor:'pointer'}}>
                   <EyeBtn skillName={sk.name} />
                   <CatBadge skillName={sk.name} autoCategory="healing" skillCats={skillCats} setSkillCat={setSkillCat} />
                   <span className="skill-name">{sk.name}</span>
@@ -988,7 +1498,8 @@ function SkillsTab({ data, hiddenSkills, toggleSkill, clearHiddenSkills, skillCa
               const hidden = hiddenSkills.has(sk.name);
               return (
                 <div key={sk.name} className="skill-row util-cols"
-                  style={{gridTemplateColumns:'32px 28px 1fr 80px 1fr',opacity:hidden?0.35:1}}>
+                  onClick={()=>!hidden&&setSelectedSkill({name:sk.name,category:'utility'})}
+                  style={{gridTemplateColumns:'32px 28px 1fr 80px 1fr',opacity:hidden?0.35:1,cursor:'pointer'}}>
                   <EyeBtn skillName={sk.name} />
                   <CatBadge skillName={sk.name} autoCategory="utility" skillCats={skillCats} setSkillCat={setSkillCat} />
                   <span className="skill-name">{sk.name}</span>
@@ -1328,6 +1839,9 @@ function PlayerModal({ player, data, factions, setFactions, npcSet, npcOverrides
   const critRate = player.attackCount > 0 ? Math.round(player.critCount/player.attackCount*100) : 0;
   const bd       = computeDmgBreakdown(player, npcSet, npcOverrides);
 
+  // Clicking a heal target opens their full PlayerModal
+  const [linkedPlayer, setLinkedPlayer] = useState(null);
+
   useEffect(() => {
     const handler = e => { if(e.key==='Escape') onClose(); };
     window.addEventListener('keydown', handler);
@@ -1336,6 +1850,18 @@ function PlayerModal({ player, data, factions, setFactions, npcSet, npcOverrides
 
   return (
     <div className="modal-backdrop" onClick={e=>{if(e.target===e.currentTarget)onClose();}}>
+      {/* Linked player detail — opens on top when a heal target is clicked */}
+      {linkedPlayer && (
+        <PlayerModal
+          player={data.players[linkedPlayer]}
+          data={data}
+          factions={factions}
+          setFactions={setFactions}
+          npcSet={npcSet}
+          npcOverrides={npcOverrides}
+          onClose={()=>setLinkedPlayer(null)}
+        />
+      )}
       <div className="modal-panel">
         <div className="modal-header">
           <div>
@@ -1469,15 +1995,24 @@ function PlayerModal({ player, data, factions, setFactions, npcSet, npcOverrides
                     {targets.length > 0 && (
                       <div style={{paddingLeft:'10px',borderLeft:'2px solid var(--heal)',marginTop:'4px'}}>
                         {targets.map(([target,amount])=>{
-                          const isSelf = target==='(self)';
+                          const isSelf      = target==='(self)';
+                          const canLink     = !isSelf && !!data.players[target];
                           return (
                             <div key={target} style={{display:'flex',alignItems:'center',gap:'8px',padding:'3px 0',
                               borderBottom:'1px solid var(--border)'}}>
-                              <span style={{
-                                flex:1,fontSize:'13px',
-                                color:isSelf?'var(--text-muted)':'var(--text)',
-                                fontStyle:isSelf?'italic':'normal',fontWeight:isSelf?'400':'600',
-                              }}>{target}</span>
+                              <span
+                                onClick={canLink ? ()=>setLinkedPlayer(target) : undefined}
+                                title={canLink ? `Click to view ${target}'s full profile` : undefined}
+                                style={{
+                                  flex:1,fontSize:'13px',
+                                  color:isSelf?'var(--text-muted)':canLink?'var(--heal)':'var(--text)',
+                                  fontStyle:isSelf?'italic':'normal',
+                                  fontWeight:isSelf?'400':'600',
+                                  cursor:canLink?'pointer':'default',
+                                  textDecoration:canLink?'underline dotted':'none',
+                                }}>
+                                {target}
+                              </span>
                               <div style={{width:'90px'}}>
                                 <div className="mini-bar-track"><div className="mini-bar-fill mini-bar-heal" style={{width:(amount/maxT*100)+'%'}} /></div>
                               </div>
@@ -1544,7 +2079,9 @@ function Dashboard({ data, factions, setFactions, hiddenSkills, toggleSkill, cle
                                  onPlayerClick={setSelectedPlayer} />}
         {tab==='skills'     && <SkillsTab data={data}
                                  hiddenSkills={hiddenSkills} toggleSkill={toggleSkill} clearHiddenSkills={clearHiddenSkills}
-                                 skillCats={skillCats} setSkillCat={setSkillCat} />}
+                                 skillCats={skillCats} setSkillCat={setSkillCat}
+                                 factions={factions} setFactions={setFactions}
+                                 npcSet={npcSet} npcOverrides={npcOverrides} />}
         {tab==='debuffs'    && <DebuffsTab data={data} factions={factions} hiddenDebuffs={hiddenDebuffs} toggleDebuff={toggleDebuff} />}
         {tab==='teams'      && <TeamsTab data={data} factions={factions} setFactions={setFactions} />}
       </div>
@@ -1747,6 +2284,7 @@ function App() {
         <div>
           <div className="app-title">⚔ COMBAT LOG ANALYZER</div>
           <div className="app-sub">ArcheAge · Session Report</div>
+          <div className="app-sub">Made by Ash</div>
         </div>
         <div className="header-right">
           {data && (
