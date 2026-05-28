@@ -953,8 +953,14 @@ function stripColors(s) {
   return s.replace(/\|cff[a-fA-F0-9]{6}/g, '').replace(/\|r/g, '');
 }
 
-function parseLog(rawText) {
+function parseLog(rawText, options = {}) {
   const lines = rawText.replace(/\r\n/g, '\n').split('\n');
+
+  // Optional time-range filter — options.startTime / options.endTime as "HH:MM"
+  // End must always be after start (no midnight crossing).
+  // Comparison works directly on "HH:MM" strings (zero-padded → lexicographic order is correct).
+  const { startTime: tf0, endTime: tf1 } = options;
+  const useTimeFilter = !!(tf0 && tf1 && tf1 > tf0);
 
   // Data containers
   const players = Object.create(null);   // name → PlayerRecord
@@ -1007,6 +1013,12 @@ function parseLog(rawText) {
     const line = lines[i];
     const hm = line.match(RE_HEADER);
     if (!hm) continue;
+
+    // Time-range filter applied FIRST — filtered lines must not affect session timestamps or stats
+    if (useTimeFilter) {
+      const t = hm[1].slice(11, 16); // "HH:MM" from "YYYY-MM-DD HH:MM:SS"
+      if (t < tf0 || t > tf1) continue;
+    }
 
     const ts = new Date(hm[1]);
     if (!sessionStart || ts < sessionStart) sessionStart = ts;
@@ -2326,21 +2338,46 @@ function UploadScreen({ onLoad }) {
   const [dragging, setDragging] = useState(false);
   const [loading, setLoading]   = useState(false);
   const [error, setError]       = useState('');
+
+  // Time filter
+  const [useTimeFilter, setUseTimeFilter] = useState(false);
+  const [startTime, setStartTime]         = useState('');
+  const [endTime,   setEndTime]           = useState('');
+
   const fileRef = useRef();
 
+  // Validation
+  const TIME_RE    = /^([01]\d|2[0-3]):([0-5]\d)$/;
+  const startValid = TIME_RE.test(startTime);
+  const endValid   = TIME_RE.test(endTime);
+  // End must be strictly after start
+  const orderOk    = !startValid || !endValid || endTime > startTime;
+  const timesValid = !useTimeFilter || (startValid && endValid && orderOk);
+  const canUpload  = !loading && timesValid;
+
+  // Auto-insert colon after the 2nd digit so user only types numbers
+  function formatTime(raw) {
+    const digits = raw.replace(/\D/g, '').slice(0, 4);
+    if (digits.length <= 2) return digits;
+    return digits.slice(0, 2) + ':' + digits.slice(2);
+  }
+
   function handleFile(file) {
-    if (!file) return;
+    if (!file || !canUpload) return;
     setLoading(true); setError('');
     const reader = new FileReader();
     reader.onload = e => {
       try {
-        const parsed = parseLog(e.target.result);
+        const options = useTimeFilter ? { startTime, endTime } : {};
+        const parsed  = parseLog(e.target.result, options);
         const playerCount = Object.keys(parsed.players).length;
-        if (playerCount === 0) throw new Error('No combat events found. Make sure this is an ArcheAge combat log.');
+        if (playerCount === 0) throw new Error(
+          useTimeFilter
+            ? `No combat events found between ${startTime} and ${endTime}. Try a wider range.`
+            : 'No combat events found. Make sure this is an ArcheAge combat log.'
+        );
         onLoad(parsed);
-      } catch(err) {
-        setError(err.message);
-      }
+      } catch(err) { setError(err.message); }
       setLoading(false);
     };
     reader.onerror = () => { setError('Failed to read file.'); setLoading(false); };
@@ -2349,11 +2386,27 @@ function UploadScreen({ onLoad }) {
 
   function onDrop(e) {
     e.preventDefault(); setDragging(false);
-    handleFile(e.dataTransfer.files[0]);
+    if (canUpload) handleFile(e.dataTransfer.files[0]);
+  }
+
+  // Shared style for a time input field
+  function timeInputStyle(value, isOrderError) {
+    const filled = value.length > 0;
+    const valid  = TIME_RE.test(value) && !isOrderError;
+    const bad    = filled && (!TIME_RE.test(value) || isOrderError);
+    return {
+      width:'72px', padding:'7px 4px', textAlign:'center',
+      fontFamily:'Rajdhani,sans-serif', fontSize:'20px', fontWeight:'700',
+      letterSpacing:'3px', borderRadius:'6px', outline:'none',
+      background:'var(--surface)', color: bad ? 'var(--danger)' : valid ? 'var(--success)' : 'var(--text)',
+      border: bad ? '2px solid var(--danger)' : valid ? '2px solid var(--success)' : '1px solid var(--border2)',
+      transition:'border-color .15s, color .15s',
+    };
   }
 
   return (
     <div className="upload-page">
+      {/* Title */}
       <div style={{marginBottom:'32px',textAlign:'center'}}>
         <div style={{fontFamily:'Cinzel,serif',fontSize:'13px',fontWeight:'700',letterSpacing:'4px',color:'var(--text-muted)',textTransform:'uppercase',marginBottom:'8px'}}>ArcheAge</div>
         <div style={{fontFamily:'Cinzel,serif',fontSize:'32px',fontWeight:'900',letterSpacing:'4px',
@@ -2366,12 +2419,13 @@ function UploadScreen({ onLoad }) {
         </div>
       </div>
 
+      {/* Drop zone — always full opacity; only the button is gated */}
       <div
         className={'upload-area'+(dragging?' drag-over':'')}
-        onDragOver={e=>{e.preventDefault();setDragging(true)}}
+        onDragOver={e=>{e.preventDefault(); if(canUpload) setDragging(true);}}
         onDragLeave={()=>setDragging(false)}
         onDrop={onDrop}
-        onClick={()=>fileRef.current?.click()}
+        onClick={()=>{ if(canUpload) fileRef.current?.click(); }}
       >
         <span className="upload-icon">⚔</span>
         <div className="upload-title">DROP YOUR COMBAT LOG</div>
@@ -2379,11 +2433,80 @@ function UploadScreen({ onLoad }) {
           Drag and drop your <strong>.log</strong> or <strong>.txt</strong> combat log file here,<br/>
           or click to browse. The file is parsed entirely in your browser — nothing is uploaded.
         </div>
-        <div className="upload-btn">
-          {loading ? 'Parsing…' : '📂 Choose File'}
+
+        {/* ── Time filter — sits above the Choose File button ── */}
+        <div
+          onClick={e => e.stopPropagation()} /* don't trigger file picker */
+          style={{marginTop:'20px', display:'flex', flexDirection:'column', alignItems:'center', gap:'10px'}}
+        >
+          {/* Checkbox */}
+          <label style={{display:'flex',alignItems:'center',gap:'8px',cursor:'pointer',userSelect:'none'}}>
+            <input
+              type="checkbox"
+              checked={useTimeFilter}
+              onChange={e => { setUseTimeFilter(e.target.checked); setError(''); }}
+              style={{width:'15px',height:'15px',cursor:'pointer',accentColor:'var(--gold)'}}
+            />
+            <span style={{fontSize:'13px',fontWeight:'700',letterSpacing:'1px',color:'var(--text-dim)'}}>
+              Filter by time range
+            </span>
+          </label>
+
+          {/* Time inputs — shown only when checked */}
+          {useTimeFilter && (
+            <>
+              <div style={{display:'flex',alignItems:'center',gap:'12px'}}>
+                {/* Start */}
+                <div style={{display:'flex',flexDirection:'column',alignItems:'center',gap:'2px'}}>
+                  <input
+                    type="text" inputMode="numeric" maxLength={5} placeholder="00:00"
+                    value={startTime}
+                    onChange={e => setStartTime(formatTime(e.target.value))}
+                    style={timeInputStyle(startTime, false)}
+                  />
+                  <span style={{fontSize:'10px',letterSpacing:'1px',color:'var(--text-muted)',fontWeight:'700'}}>FROM</span>
+                </div>
+
+                <span style={{fontSize:'18px',color:'var(--text-muted)',paddingBottom:'14px'}}>→</span>
+
+                {/* End — red when before start */}
+                <div style={{display:'flex',flexDirection:'column',alignItems:'center',gap:'2px'}}>
+                  <input
+                    type="text" inputMode="numeric" maxLength={5} placeholder="00:00"
+                    value={endTime}
+                    onChange={e => setEndTime(formatTime(e.target.value))}
+                    style={timeInputStyle(endTime, startValid && endValid && endTime <= startTime)}
+                  />
+                  <span style={{fontSize:'10px',letterSpacing:'1px',color:'var(--text-muted)',fontWeight:'700'}}>TO</span>
+                </div>
+              </div>
+
+              {/* Inline status */}
+              <div style={{fontSize:'12px',color: timesValid ? 'var(--success)' : !orderOk ? 'var(--danger)' : 'var(--text-muted)'}}>
+                {!orderOk
+                  ? 'End time must be after start time'
+                  : timesValid
+                    ? `Parsing ${startTime} → ${endTime}`
+                    : 'Enter start and end time (type digits, e.g. 1430)'}
+              </div>
+            </>
+          )}
         </div>
+
+        {/* Choose File button — the only element that locks */}
+        <div
+          className="upload-btn"
+          style={{
+            marginTop:'16px',
+            opacity:    canUpload ? 1 : 0.45,
+            cursor:     canUpload ? 'pointer' : 'not-allowed',
+          }}
+        >
+          {loading ? 'Parsing…' : canUpload ? '📂 Choose File' : '🔒 Enter valid time range first'}
+        </div>
+
         <input ref={fileRef} type="file" accept=".log,.txt" style={{display:'none'}}
-          onChange={e=>handleFile(e.target.files[0])} />
+          onChange={e => handleFile(e.target.files[0])} />
       </div>
 
       {error && (
